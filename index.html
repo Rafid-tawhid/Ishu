@@ -504,57 +504,98 @@
         transform: scale(0.98);
       }
 
-      .thankyou-message {
-        margin-top: 15px;
-        font-size: 1.6rem;
-        color: #ffddf5;
-        background: rgba(60, 30, 60, 0.6);
-        backdrop-filter: blur(8px);
-        border-radius: 60px;
-        padding: 20px 24px;
-        border: 1px solid #d495c4;
+      /* Thank You Animation - BIG */
+      .thankyou-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         display: none;
-        box-shadow: 0 0 40px rgba(200, 100, 180, 0.2);
-        animation: glowPulse 2s infinite alternate;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: overlayFade 0.5s ease;
       }
 
-      .thankyou-message.visible {
-        display: block;
-        animation:
-          fadeSlide 0.5s ease,
-          glowPulse 2s infinite alternate;
+      .thankyou-overlay.visible {
+        display: flex;
       }
 
-      @keyframes glowPulse {
+      @keyframes overlayFade {
         0% {
-          box-shadow: 0 0 20px rgba(200, 100, 180, 0.2);
+          opacity: 0;
+          transform: scale(0.8);
         }
         100% {
-          box-shadow:
-            0 0 60px rgba(220, 130, 200, 0.5),
-            0 0 100px rgba(200, 100, 180, 0.2);
+          opacity: 1;
+          transform: scale(1);
         }
       }
 
-      .heart-decoration {
-        font-size: 1.8rem;
-        opacity: 0.4;
-        letter-spacing: 12px;
-        margin: 12px 0 0;
-        color: #f7b0e6;
-        animation: shimmer 3s infinite;
+      .thankyou-content {
+        text-align: center;
+        animation: thankyouBounce 1s ease;
+        padding: 20px;
       }
 
-      @keyframes shimmer {
-        0%,
+      @keyframes thankyouBounce {
+        0% {
+          transform: scale(0) rotate(-10deg);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.2) rotate(3deg);
+          opacity: 1;
+        }
+        80% {
+          transform: scale(0.95) rotate(-2deg);
+        }
         100% {
-          opacity: 0.4;
-          letter-spacing: 12px;
+          transform: scale(1) rotate(0deg);
         }
-        50% {
-          opacity: 0.8;
-          letter-spacing: 16px;
+      }
+
+      .thankyou-content .big-emoji {
+        font-size: 8rem;
+        display: block;
+        animation: emojiPulse 1s infinite alternate;
+      }
+
+      @keyframes emojiPulse {
+        0% {
+          transform: scale(1);
         }
+        100% {
+          transform: scale(1.1);
+        }
+      }
+
+      .thankyou-content h2 {
+        font-size: 4rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #ffe5f9, #ffc1f0, #f9b0e0, #ffc1f0);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradientShift 2s ease infinite;
+        margin: 20px 0 10px;
+      }
+
+      .thankyou-content p {
+        font-size: 2rem;
+        color: #fad6f0;
+        margin: 10px 0;
+      }
+
+      .thankyou-content .sub-message {
+        font-size: 1.3rem;
+        color: #d88fc8;
+        opacity: 0.8;
       }
 
       /* Confetti container */
@@ -565,7 +606,7 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
-        z-index: 100;
+        z-index: 1001;
         overflow: hidden;
       }
 
@@ -671,9 +712,16 @@
           padding: 16px 20px;
         }
 
-        .thankyou-message {
-          font-size: 1.2rem;
-          padding: 15px 18px;
+        .thankyou-content h2 {
+          font-size: 2.5rem;
+        }
+
+        .thankyou-content .big-emoji {
+          font-size: 5rem;
+        }
+
+        .thankyou-content p {
+          font-size: 1.3rem;
         }
 
         .countdown-timer .time-unit .number {
@@ -700,6 +748,10 @@
           width: 70px;
           height: 70px;
           font-size: 35px;
+        }
+
+        .thankyou-content h2 {
+          font-size: 2rem;
         }
       }
 
@@ -728,6 +780,25 @@
 
     <!-- Confetti container -->
     <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- Thank You Overlay -->
+    <div class="thankyou-overlay" id="thankyouOverlay">
+      <div class="thankyou-content">
+        <span class="big-emoji">🥰</span>
+        <h2>THANK YOU, ISHU! ❤️</h2>
+        <p>You just made me the happiest person! 💫</p>
+        <div class="sub-message">✨ Sending you the date details now... ✨</div>
+        <div
+          style="
+            margin-top: 30px;
+            font-size: 3rem;
+            animation: emojiPulse 1s infinite alternate;
+          "
+        >
+          💕 🌹 💖
+        </div>
+      </div>
+    </div>
 
     <!-- Main card -->
     <div class="card">
@@ -819,6 +890,7 @@
         const typedText = document.getElementById("typedText");
         const profileImage = document.getElementById("profileImage");
         const confettiContainer = document.getElementById("confettiContainer");
+        const thankyouOverlay = document.getElementById("thankyouOverlay");
 
         // --- Typing Animation ---
         const question = "Do you want to go on a date with me?";
@@ -866,7 +938,7 @@
           ];
           const shapes = ["■", "●", "▲", "★", "♦", "❤"];
 
-          for (let i = 0; i < 80; i++) {
+          for (let i = 0; i < 100; i++) {
             const confetti = document.createElement("div");
             confetti.className = "confetti-piece";
             confetti.textContent =
@@ -995,48 +1067,72 @@
             return;
           }
 
-          // Show thank you
-          thankyouMsg.classList.add("visible");
+          // Show big thank you overlay
+          thankyouOverlay.classList.add("visible");
 
-          // Create confetti celebration
+          // Create massive confetti celebration
           createConfetti();
 
-          // Show countdown timer
-          countdownTimer.classList.add("visible");
-          startCountdown(dateVal, timeVal);
+          // Create sparkles everywhere
+          for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+              createSparkle(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight,
+              );
+            }, i * 100);
+          }
 
-          // Build email
-          const subject = encodeURIComponent("💖 Date with Ishu ✨");
-          const body = encodeURIComponent(
-            `Dear Ishu,\n\n` +
-              `You said YES! 🌸\n` +
-              `📅 Date: ${dateVal}\n` +
-              `⏰ Time: ${timeVal}\n\n` +
-              `I'm so excited to see you! 💫\n` +
-              `Can't wait for our special day! 🌹\n\n` +
-              `With all my love ❤️`,
-          );
-
-          const mailtoLink = `mailto:rafidtawhid01@gmail.com?subject=${subject}&body=${body}`;
-          window.open(mailtoLink, "_blank");
-
-          // Also copy to clipboard
-          const fallbackText = `Date: ${dateVal}\nTime: ${timeVal}\n(Email sent to rafidtawhid01@gmail.com)`;
-          navigator.clipboard?.writeText(fallbackText).catch(() => {});
-
-          // Disable submit button temporarily
-          submitBtn.disabled = true;
-          submitBtn.textContent = "✅ Done!";
+          // Show countdown timer in background
           setTimeout(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "💌 Let's go!";
-          }, 3000);
+            countdownTimer.classList.add("visible");
+          }, 500);
 
           // Change profile image
           profileImage.textContent = "🥰";
           setTimeout(() => {
             profileImage.textContent = "💕";
           }, 3000);
+
+          // --- AFTER 3 SECONDS: Open email ---
+          setTimeout(() => {
+            // Hide the overlay with a fade
+            thankyouOverlay.style.animation = "overlayFade 0.3s reverse";
+            setTimeout(() => {
+              thankyouOverlay.classList.remove("visible");
+              thankyouOverlay.style.animation = "";
+            }, 300);
+
+            // Show small thank you message in card
+            thankyouMsg.classList.add("visible");
+
+            // Open email
+            const subject = encodeURIComponent("💖 Date with Ishu ✨");
+            const body = encodeURIComponent(
+              `Dear Ishu,\n\n` +
+                `You said YES! 🌸\n` +
+                `📅 Date: ${dateVal}\n` +
+                `⏰ Time: ${timeVal}\n\n` +
+                `I'm so excited to see you! 💫\n` +
+                `Can't wait for our special day! 🌹\n\n` +
+                `With all my love ❤️`,
+            );
+
+            const mailtoLink = `mailto:rafidtawhid01@gmail.com?subject=${subject}&body=${body}`;
+            window.open(mailtoLink, "_blank");
+
+            // Also copy to clipboard
+            const fallbackText = `Date: ${dateVal}\nTime: ${timeVal}\n(Email sent to rafidtawhid01@gmail.com)`;
+            navigator.clipboard?.writeText(fallbackText).catch(() => {});
+
+            // Disable submit button temporarily
+            submitBtn.disabled = true;
+            submitBtn.textContent = "✅ Done!";
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "💌 Let's go!";
+            }, 3000);
+          }, 3000); // 3 second delay
         });
 
         // --- Countdown Timer ---
