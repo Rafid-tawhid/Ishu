@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
     />
-    <title>💫 Ishu · date?</title>
+    <title>💫 Ishu · Will you go on a date with me?</title>
     <style>
       * {
         margin: 0;
@@ -16,7 +16,6 @@
           "Segoe UI",
           system-ui,
           -apple-system,
-          BlinkMacSystemFont,
           "Helvetica Neue",
           sans-serif;
       }
@@ -25,9 +24,10 @@
         min-height: 100vh;
         background: linear-gradient(
           145deg,
-          #1a0b1f 0%,
-          #2e1a2f 40%,
-          #3f1f3f 100%
+          #0a0a1a 0%,
+          #1a0b1f 30%,
+          #2e1a2f 60%,
+          #1a0b1f 100%
         );
         display: flex;
         justify-content: center;
@@ -35,99 +35,224 @@
         padding: 20px;
         margin: 0;
         position: relative;
+        overflow-x: hidden;
       }
 
-      /* ✨ magical background sparkles */
-      body::before {
-        content: "";
+      /* Floating hearts background */
+      .floating-hearts {
         position: fixed;
-        inset: 0;
-        background-image:
-          radial-gradient(
-            2px 2px at 20% 30%,
-            rgba(255, 215, 245, 0.4),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 40% 70%,
-            rgba(255, 200, 240, 0.3),
-            transparent
-          ),
-          radial-gradient(
-            3px 3px at 70% 20%,
-            rgba(255, 180, 230, 0.5),
-            transparent
-          ),
-          radial-gradient(
-            2px 2px at 90% 80%,
-            rgba(255, 220, 250, 0.4),
-            transparent
-          ),
-          radial-gradient(
-            4px 4px at 10% 90%,
-            rgba(255, 190, 245, 0.2),
-            transparent
-          );
-        background-size: 200% 200%;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         pointer-events: none;
         z-index: 0;
+        overflow: hidden;
       }
 
+      .heart-particle {
+        position: absolute;
+        animation: floatHeart 12s infinite linear;
+        opacity: 0.3;
+        font-size: 20px;
+        user-select: none;
+      }
+
+      @keyframes floatHeart {
+        0% {
+          transform: translateY(100vh) rotate(0deg) scale(0.5);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.4;
+        }
+        90% {
+          opacity: 0.4;
+        }
+        100% {
+          transform: translateY(-10vh) rotate(720deg) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      /* Sparkle effect */
+      .sparkle {
+        position: fixed;
+        pointer-events: none;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 215, 245, 0.8),
+          transparent
+        );
+        animation: sparkleFade 1s ease-out forwards;
+        z-index: 5;
+      }
+
+      @keyframes sparkleFade {
+        0% {
+          transform: scale(0);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(3);
+          opacity: 0;
+        }
+      }
+
+      /* Main card */
       .card {
         position: relative;
         z-index: 10;
         max-width: 650px;
         width: 100%;
-        background: rgba(40, 22, 44, 0.65);
-        backdrop-filter: blur(12px) saturate(180%);
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        border-radius: 60px 60px 60px 60px;
-        padding: 2.5rem 2rem 2.8rem;
+        background: rgba(40, 22, 44, 0.7);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border-radius: 60px;
+        padding: 2.8rem 2rem 2.8rem;
         box-shadow:
-          0 30px 60px rgba(0, 0, 0, 0.6),
+          0 30px 80px rgba(0, 0, 0, 0.7),
           0 0 0 1px rgba(255, 215, 255, 0.15),
-          0 0 40px rgba(200, 130, 200, 0.3);
-        border: 1px solid rgba(255, 220, 255, 0.2);
-        transition: all 0.3s ease;
+          0 0 60px rgba(200, 130, 200, 0.2),
+          inset 0 0 80px rgba(200, 100, 180, 0.05);
+        border: 1px solid rgba(255, 220, 255, 0.15);
         text-align: center;
+        animation: cardGlow 3s infinite alternate;
+      }
+
+      @keyframes cardGlow {
+        0% {
+          box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.7),
+            0 0 0 1px rgba(255, 215, 255, 0.15),
+            0 0 40px rgba(200, 130, 200, 0.2);
+        }
+        100% {
+          box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.7),
+            0 0 0 1px rgba(255, 215, 255, 0.25),
+            0 0 80px rgba(200, 130, 200, 0.4);
+        }
+      }
+
+      /* Profile image placeholder */
+      .profile-section {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+        background: linear-gradient(135deg, #d88fc8, #b84a9b);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 60px;
+        box-shadow: 0 0 30px rgba(200, 100, 180, 0.3);
+        border: 3px solid rgba(255, 215, 255, 0.3);
+        animation: profilePulse 2s infinite alternate;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .profile-image::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6bcb, #ffd700, #ff6bcb);
+        background-size: 300% 300%;
+        animation: gradientRotate 4s ease infinite;
+        z-index: -1;
+        padding: 3px;
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+
+      @keyframes gradientRotate {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @keyframes profilePulse {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.05);
+        }
       }
 
       .card h1 {
         font-size: 2.6rem;
-        font-weight: 600;
-        background: linear-gradient(135deg, #ffe5f9, #ffc1f0, #f9b0e0);
+        font-weight: 700;
+        background: linear-gradient(135deg, #ffe5f9, #ffc1f0, #f9b0e0, #ffc1f0);
+        background-size: 300% 300%;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
+        animation: gradientShift 4s ease infinite;
         letter-spacing: -0.5px;
-        text-shadow: 0 0 20px rgba(255, 180, 240, 0.3);
+        text-shadow: 0 0 40px rgba(255, 180, 240, 0.2);
         margin-bottom: 0.25rem;
-        word-break: break-word;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       .card .sub {
         font-size: 1.8rem;
         font-weight: 300;
         color: #fad6f0;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         letter-spacing: 2px;
         opacity: 0.9;
-        text-shadow: 0 0 10px rgba(255, 200, 240, 0.2);
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: 0 0 20px rgba(255, 200, 240, 0.15);
       }
 
-      .card .sub span {
+      .typing-cursor {
         display: inline-block;
-        animation: shimmer 3s infinite;
+        width: 3px;
+        height: 1.8rem;
+        background: #ffc1f0;
+        margin-left: 4px;
+        animation: blink 0.8s infinite;
       }
 
-      @keyframes shimmer {
+      @keyframes blink {
         0%,
         100% {
-          opacity: 0.8;
+          opacity: 1;
         }
         50% {
-          opacity: 1;
-          text-shadow: 0 0 20px #ffb0f0;
+          opacity: 0;
         }
       }
 
@@ -137,105 +262,132 @@
         justify-content: center;
         align-items: center;
         gap: 25px;
-        margin: 30px 0 15px;
+        margin: 25px 0 15px;
       }
 
       .btn {
         border: none;
-        padding: 16px 44px;
+        padding: 18px 48px;
         border-radius: 60px;
         font-size: 1.7rem;
         font-weight: 600;
         letter-spacing: 1px;
         cursor: pointer;
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
         flex: 0 1 auto;
-        min-width: 120px;
+        min-width: 130px;
         position: relative;
         overflow: hidden;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transform: scale(0);
+        transition: transform 0.5s ease;
+      }
+
+      .btn:hover::before {
+        transform: scale(1);
       }
 
       .btn-yes {
         background: linear-gradient(145deg, #b84a9b, #9f3b86);
         border-color: #f7b0e6;
-        box-shadow: 0 8px 25px rgba(180, 70, 160, 0.5);
+        box-shadow: 0 8px 30px rgba(180, 70, 160, 0.5);
         color: #fff4fe;
+        animation: yesGlow 2s infinite alternate;
+      }
+
+      @keyframes yesGlow {
+        0% {
+          box-shadow: 0 8px 30px rgba(180, 70, 160, 0.5);
+        }
+        100% {
+          box-shadow:
+            0 8px 50px rgba(200, 100, 180, 0.8),
+            0 0 80px rgba(200, 100, 180, 0.2);
+        }
       }
 
       .btn-yes:hover {
-        transform: scale(1.05);
+        transform: scale(1.08) translateY(-3px);
         background: linear-gradient(145deg, #cc5aaf, #b04196);
-        box-shadow: 0 12px 35px rgba(200, 80, 180, 0.7);
+        box-shadow: 0 12px 45px rgba(200, 80, 180, 0.7);
+      }
+
+      .btn-yes:active {
+        transform: scale(0.95);
       }
 
       .btn-no {
-        background: rgba(60, 40, 60, 0.7);
+        background: rgba(60, 40, 60, 0.6);
         backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 150, 200, 0.25);
+        border: 1px solid rgba(255, 150, 200, 0.2);
         color: #f2d0ec;
-        transition: 0.1s;
+        animation: floatNo 2s infinite alternate ease-in-out;
+        transform-origin: center;
         cursor: default;
         position: relative;
-        min-width: 120px;
-        animation: floatNo 1.8s infinite alternate ease-in-out;
-        transform-origin: center;
       }
 
-      /* dancing no button */
       @keyframes floatNo {
         0% {
-          transform: translate(0px, 0px) rotate(-2deg) scale(0.98);
+          transform: translate(0px, 0px) rotate(-3deg) scale(0.95);
         }
         25% {
-          transform: translate(8px, -12px) rotate(4deg) scale(1.02);
+          transform: translate(12px, -15px) rotate(5deg) scale(1.05);
         }
         50% {
-          transform: translate(-6px, 8px) rotate(-6deg) scale(0.96);
+          transform: translate(-8px, 10px) rotate(-7deg) scale(0.93);
         }
         75% {
-          transform: translate(12px, 6px) rotate(3deg) scale(1.01);
+          transform: translate(15px, 8px) rotate(4deg) scale(1.02);
         }
         100% {
-          transform: translate(-4px, -8px) rotate(-1deg) scale(0.99);
+          transform: translate(-5px, -10px) rotate(-2deg) scale(0.97);
         }
       }
 
       .btn-no:hover {
-        animation: floatNo 0.6s infinite alternate ease-in-out;
-        background: rgba(80, 50, 75, 0.8);
+        animation: floatNo 0.4s infinite alternate ease-in-out;
+        background: rgba(80, 50, 75, 0.7);
       }
 
-      /* date & time picker container */
+      /* Picker wrapper */
       .picker-wrapper {
         margin-top: 30px;
-        padding: 25px 20px 20px;
-        background: rgba(20, 10, 22, 0.5);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        padding: 30px 25px 25px;
+        background: rgba(20, 10, 22, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border-radius: 48px;
-        border: 1px solid rgba(255, 200, 240, 0.15);
-        box-shadow: inset 0 0 40px rgba(150, 70, 150, 0.2);
+        border: 1px solid rgba(255, 200, 240, 0.12);
+        box-shadow: inset 0 0 60px rgba(150, 70, 150, 0.15);
         display: none;
         flex-direction: column;
-        gap: 28px;
-        transition: all 0.4s ease;
+        gap: 25px;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
       .picker-wrapper.visible {
         display: flex;
-        animation: fadeSlide 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        animation: fadeSlide 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
       @keyframes fadeSlide {
         0% {
           opacity: 0;
-          transform: translateY(20px) scale(0.95);
+          transform: translateY(30px) scale(0.9);
         }
         100% {
           opacity: 1;
@@ -262,28 +414,29 @@
 
       .picker-row input,
       .picker-row select {
-        background: rgba(20, 10, 22, 0.6);
+        background: rgba(20, 10, 22, 0.7);
         backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 200, 240, 0.25);
+        border: 1px solid rgba(255, 200, 240, 0.2);
         border-radius: 60px;
-        padding: 16px 22px;
+        padding: 18px 24px;
         font-size: 1.2rem;
         color: #f7e4f2;
         outline: none;
-        transition: all 0.2s;
+        transition: all 0.3s ease;
         width: 100%;
         cursor: pointer;
         font-weight: 300;
         letter-spacing: 0.3px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       }
 
       .picker-row input:focus,
       .picker-row select:focus {
         border-color: #d88fc8;
         box-shadow:
-          0 0 0 3px rgba(200, 120, 190, 0.4),
-          0 4px 16px rgba(0, 0, 0, 0.3);
+          0 0 0 4px rgba(200, 120, 190, 0.2),
+          0 4px 20px rgba(0, 0, 0, 0.3);
+        transform: scale(1.02);
       }
 
       .picker-row input[type="date"]::-webkit-calendar-picker-indicator,
@@ -301,106 +454,303 @@
         background: linear-gradient(135deg, #b44e9b, #8f3b7a);
         border: none;
         border-radius: 60px;
-        padding: 18px 28px;
+        padding: 20px 28px;
         font-size: 1.6rem;
         font-weight: 600;
         color: #fff4fe;
-        box-shadow: 0 10px 30px rgba(160, 60, 140, 0.5);
-        margin-top: 10px;
-        transition: all 0.2s;
+        box-shadow: 0 10px 35px rgba(160, 60, 140, 0.5);
+        margin-top: 5px;
+        transition: all 0.3s ease;
         letter-spacing: 2px;
         width: 100%;
         cursor: pointer;
-        border: 1px solid rgba(255, 200, 240, 0.3);
+        border: 1px solid rgba(255, 200, 240, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-submit::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+        transform: scale(0);
+        transition: transform 0.5s ease;
+      }
+
+      .btn-submit:hover::before {
+        transform: scale(1);
       }
 
       .btn-submit:hover {
         background: linear-gradient(135deg, #cc5daf, #a5448a);
-        transform: scale(1.02);
-        box-shadow: 0 12px 40px rgba(190, 70, 170, 0.7);
+        transform: scale(1.03);
+        box-shadow: 0 12px 45px rgba(190, 70, 170, 0.7);
+      }
+
+      .btn-submit:active {
+        transform: scale(0.97);
+      }
+
+      .btn-submit:disabled {
+        opacity: 0.6;
+        transform: scale(0.98);
       }
 
       .thankyou-message {
-        margin-top: 20px;
+        margin-top: 15px;
         font-size: 1.6rem;
         color: #ffddf5;
-        background: rgba(60, 30, 60, 0.5);
-        backdrop-filter: blur(6px);
+        background: rgba(60, 30, 60, 0.6);
+        backdrop-filter: blur(8px);
         border-radius: 60px;
-        padding: 18px 20px;
+        padding: 20px 24px;
         border: 1px solid #d495c4;
         display: none;
-        box-shadow: 0 0 30px rgba(200, 100, 180, 0.2);
+        box-shadow: 0 0 40px rgba(200, 100, 180, 0.2);
         animation: glowPulse 2s infinite alternate;
       }
 
       .thankyou-message.visible {
         display: block;
+        animation:
+          fadeSlide 0.5s ease,
+          glowPulse 2s infinite alternate;
       }
 
       @keyframes glowPulse {
         0% {
-          box-shadow: 0 0 15px rgba(200, 100, 180, 0.2);
+          box-shadow: 0 0 20px rgba(200, 100, 180, 0.2);
         }
         100% {
-          box-shadow: 0 0 40px rgba(220, 130, 200, 0.5);
+          box-shadow:
+            0 0 60px rgba(220, 130, 200, 0.5),
+            0 0 100px rgba(200, 100, 180, 0.2);
         }
       }
 
       .heart-decoration {
         font-size: 1.8rem;
         opacity: 0.4;
-        letter-spacing: 10px;
+        letter-spacing: 12px;
         margin: 12px 0 0;
         color: #f7b0e6;
+        animation: shimmer 3s infinite;
       }
 
-      /* mobile fine-tune */
-      @media (max-width: 500px) {
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 0.4;
+          letter-spacing: 12px;
+        }
+        50% {
+          opacity: 0.8;
+          letter-spacing: 16px;
+        }
+      }
+
+      /* Confetti container */
+      .confetti-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 100;
+        overflow: hidden;
+      }
+
+      .confetti-piece {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        top: -20px;
+        animation: confettiFall linear forwards;
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(0) rotate(0deg) scale(0);
+          opacity: 1;
+        }
+        20% {
+          transform: translateY(20vh) rotate(72deg) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(720deg) scale(0.5);
+          opacity: 0;
+        }
+      }
+
+      /* Countdown timer */
+      .countdown-timer {
+        margin-top: 15px;
+        padding: 15px;
+        background: rgba(20, 10, 22, 0.5);
+        border-radius: 30px;
+        border: 1px solid rgba(255, 200, 240, 0.1);
+        display: none;
+      }
+
+      .countdown-timer.visible {
+        display: block;
+        animation: fadeSlide 0.5s ease;
+      }
+
+      .countdown-timer .time-display {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        font-size: 1.2rem;
+        color: #f0cee8;
+      }
+
+      .countdown-timer .time-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .countdown-timer .time-unit .number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #ffc1f0;
+        text-shadow: 0 0 20px rgba(255, 200, 240, 0.3);
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 600px) {
         .card {
           padding: 1.8rem 1.2rem;
+          border-radius: 40px;
         }
+
         .card h1 {
-          font-size: 2.2rem;
+          font-size: 2rem;
         }
+
         .card .sub {
-          font-size: 1.4rem;
+          font-size: 1.3rem;
+          min-height: 50px;
         }
+
         .btn {
           padding: 14px 28px;
-          font-size: 1.4rem;
+          font-size: 1.3rem;
           min-width: 100px;
         }
+
         .button-group {
           gap: 15px;
         }
+
+        .profile-image {
+          width: 90px;
+          height: 90px;
+          font-size: 45px;
+        }
+
         .picker-row input,
         .picker-row select {
-          padding: 14px 16px;
+          padding: 14px 18px;
           font-size: 1rem;
+        }
+
+        .btn-submit {
+          font-size: 1.3rem;
+          padding: 16px 20px;
+        }
+
+        .thankyou-message {
+          font-size: 1.2rem;
+          padding: 15px 18px;
+        }
+
+        .countdown-timer .time-unit .number {
+          font-size: 1.8rem;
         }
       }
 
-      /* hide no button from selection (but it still dances) */
-      .btn-no:active {
-        pointer-events: none;
+      @media (max-width: 400px) {
+        .card h1 {
+          font-size: 1.6rem;
+        }
+
+        .card .sub {
+          font-size: 1.1rem;
+        }
+
+        .btn {
+          padding: 12px 20px;
+          font-size: 1.1rem;
+          min-width: 80px;
+        }
+
+        .profile-image {
+          width: 70px;
+          height: 70px;
+          font-size: 35px;
+        }
+      }
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #1a0b1f;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #b84a9b;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #d88fc8;
       }
     </style>
   </head>
   <body>
+    <!-- Floating hearts background -->
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- Main card -->
     <div class="card">
+      <!-- Profile section -->
+      <div class="profile-section">
+        <div class="profile-image" id="profileImage">💕</div>
+      </div>
+
       <h1>✨ Dear Ishu ✨</h1>
-      <div class="sub"><span>do you want to go on a date with me ?</span></div>
+      <div class="sub" id="questionText">
+        <span id="typedText"></span>
+        <span class="typing-cursor"></span>
+      </div>
 
       <div class="button-group">
         <button class="btn btn-yes" id="yesBtn">💖 Yes</button>
         <button class="btn btn-no" id="noBtn">🙈 No</button>
       </div>
 
-      <!-- picker container (date + time + mail) -->
+      <!-- Picker wrapper -->
       <div class="picker-wrapper" id="pickerWrapper">
         <div class="picker-row">
-          <label for="datePicker">📅 choose a day</label>
+          <label for="datePicker">📅 Choose a day</label>
           <input
             type="date"
             id="datePicker"
@@ -409,29 +759,55 @@
           />
         </div>
         <div class="picker-row">
-          <label for="timeSelect">⏰ pick a time</label>
+          <label for="timeSelect">⏰ Pick a time</label>
           <select id="timeSelect">
-            <option value="10:00">10:00 AM</option>
-            <option value="11:30">11:30 AM</option>
-            <option value="13:00">1:00 PM</option>
-            <option value="14:30">2:30 PM</option>
-            <option value="16:00">4:00 PM</option>
-            <option value="17:30">5:30 PM</option>
-            <option value="19:00">7:00 PM</option>
-            <option value="20:30">8:30 PM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:30 AM">11:30 AM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:30 PM">2:30 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:30 PM">5:30 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+            <option value="8:30 PM">8:30 PM</option>
           </select>
         </div>
         <button class="btn-submit" id="submitBtn">💌 Let's go!</button>
+
         <div class="thankyou-message" id="thankyouMsg">
-          🌹 Thank you, Ishu! <br />
-          I can't wait 💫
+          🌹 Thank you, Ishu! I can't wait to see you! 💫
         </div>
+
+        <div class="countdown-timer" id="countdownTimer">
+          <div style="font-size: 0.9rem; color: #f0cee8; margin-bottom: 10px">
+            ⏳ Time until our date:
+          </div>
+          <div class="time-display">
+            <div class="time-unit">
+              <span class="number" id="daysCount">00</span>
+              <span>Days</span>
+            </div>
+            <div class="time-unit">
+              <span class="number" id="hoursCount">00</span>
+              <span>Hours</span>
+            </div>
+            <div class="time-unit">
+              <span class="number" id="minutesCount">00</span>
+              <span>Mins</span>
+            </div>
+            <div class="time-unit">
+              <span class="number" id="secondsCount">00</span>
+              <span>Secs</span>
+            </div>
+          </div>
+        </div>
+
         <div class="heart-decoration">❤️ ✨ 💕 ✨ ❤️</div>
       </div>
     </div>
 
     <script>
       (function () {
+        // --- DOM Elements ---
         const yesBtn = document.getElementById("yesBtn");
         const noBtn = document.getElementById("noBtn");
         const pickerWrapper = document.getElementById("pickerWrapper");
@@ -439,8 +815,169 @@
         const timeSelect = document.getElementById("timeSelect");
         const submitBtn = document.getElementById("submitBtn");
         const thankyouMsg = document.getElementById("thankyouMsg");
+        const countdownTimer = document.getElementById("countdownTimer");
+        const typedText = document.getElementById("typedText");
+        const profileImage = document.getElementById("profileImage");
+        const confettiContainer = document.getElementById("confettiContainer");
 
-        // ── set default date (tomorrow) ──
+        // --- Typing Animation ---
+        const question = "Do you want to go on a date with me?";
+        let charIndex = 0;
+
+        function typeWriter() {
+          if (charIndex < question.length) {
+            typedText.textContent += question.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 50 + Math.random() * 30);
+          }
+        }
+        typeWriter();
+
+        // --- Floating Hearts ---
+        function createFloatingHearts() {
+          const container = document.getElementById("heartsContainer");
+          const emojis = ["❤️", "💕", "💖", "✨", "🌟", "💗", "🌹", "🌸", "💝"];
+          for (let i = 0; i < 25; i++) {
+            const heart = document.createElement("div");
+            heart.className = "heart-particle";
+            heart.textContent =
+              emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + "%";
+            heart.style.animationDuration = 10 + Math.random() * 15 + "s";
+            heart.style.animationDelay = Math.random() * 15 + "s";
+            heart.style.fontSize = 16 + Math.random() * 30 + "px";
+            heart.style.opacity = 0.2 + Math.random() * 0.3;
+            container.appendChild(heart);
+          }
+        }
+        createFloatingHearts();
+
+        // --- Confetti System ---
+        function createConfetti() {
+          const colors = [
+            "#ff6b6b",
+            "#ffd93d",
+            "#6bcb77",
+            "#4d96ff",
+            "#ff6bcb",
+            "#ff9a76",
+            "#a66cff",
+            "#ff6b8a",
+          ];
+          const shapes = ["■", "●", "▲", "★", "♦", "❤"];
+
+          for (let i = 0; i < 80; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti-piece";
+            confetti.textContent =
+              shapes[Math.floor(Math.random() * shapes.length)];
+            confetti.style.left = Math.random() * 100 + "%";
+            confetti.style.color =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.fontSize = 10 + Math.random() * 18 + "px";
+            confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+            confetti.style.animationDelay = Math.random() * 1.5 + "s";
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            confettiContainer.appendChild(confetti);
+          }
+
+          // Remove confetti after animation
+          setTimeout(() => {
+            confettiContainer.innerHTML = "";
+          }, 5000);
+        }
+
+        // --- Sparkle Effect ---
+        function createSparkle(x, y) {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          sparkle.style.left = x + "px";
+          sparkle.style.top = y + "px";
+          sparkle.style.width = 20 + Math.random() * 40 + "px";
+          sparkle.style.height = sparkle.style.width;
+          document.body.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        // --- Yes Button ---
+        yesBtn.addEventListener("click", function (e) {
+          // Create sparkles at click position
+          for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+              createSparkle(
+                e.clientX + (Math.random() - 0.5) * 100,
+                e.clientY + (Math.random() - 0.5) * 100,
+              );
+            }, i * 50);
+          }
+
+          pickerWrapper.classList.add("visible");
+          thankyouMsg.classList.remove("visible");
+          countdownTimer.classList.remove("visible");
+
+          // Scroll to picker
+          setTimeout(() => {
+            pickerWrapper.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 300);
+
+          // Change profile image
+          profileImage.textContent = "😍";
+          setTimeout(() => {
+            profileImage.textContent = "💕";
+          }, 2000);
+        });
+
+        // --- No Button: Dancing + unclickable ---
+        noBtn.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          noBtn.style.animation = "none";
+          noBtn.offsetHeight;
+          noBtn.style.animation = "floatNo 0.3s infinite alternate ease-in-out";
+
+          // Shake the card
+          const card = document.querySelector(".card");
+          card.style.transform = "rotate(1deg) scale(0.98)";
+          setTimeout(() => {
+            card.style.transform = "";
+          }, 300);
+
+          // Playful feedback
+          const messages = [
+            "😘 Nice try!",
+            "💕 You can't say no!",
+            "✨ Say yes!",
+            "❤️ I know you want to!",
+          ];
+          noBtn.textContent =
+            messages[Math.floor(Math.random() * messages.length)];
+          setTimeout(() => {
+            noBtn.textContent = "🙈 No";
+          }, 1500);
+
+          return false;
+        });
+
+        noBtn.addEventListener("mousedown", (e) => e.preventDefault());
+        noBtn.addEventListener("touchstart", (e) => e.preventDefault());
+
+        // Prevent any click on no button
+        document.addEventListener(
+          "click",
+          function (e) {
+            if (e.target === noBtn || noBtn.contains(e.target)) {
+              e.preventDefault();
+              e.stopPropagation();
+              return false;
+            }
+          },
+          true,
+        );
+
+        // --- Date Picker: Set default to tomorrow ---
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         const year = tomorrow.getFullYear();
@@ -448,134 +985,134 @@
         const day = String(tomorrow.getDate()).padStart(2, "0");
         datePicker.value = `${year}-${month}-${day}`;
 
-        // ── "Yes" reveals picker ──
-        yesBtn.addEventListener("click", function () {
-          pickerWrapper.classList.add("visible");
-          thankyouMsg.classList.remove("visible");
-          // scroll into view nicely on mobile
-          setTimeout(() => {
-            pickerWrapper.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-            });
-          }, 200);
-        });
-
-        // ── "No" button: dancing + never selected ──
-        // we block click, but also the animation makes it "unclickable"
-        noBtn.addEventListener("click", function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          // extra shake + move
-          noBtn.style.animation = "none";
-          noBtn.offsetHeight; // reflow
-          noBtn.style.animation = "floatNo 0.5s infinite alternate ease-in-out";
-          // also wiggle the card a little
-          const card = document.querySelector(".card");
-          card.style.transform = "rotate(0.5deg) scale(0.99)";
-          setTimeout(() => {
-            card.style.transform = "";
-          }, 300);
-          return false;
-        });
-
-        // also prevent any pointer events on no button from selecting
-        noBtn.addEventListener("mousedown", (e) => e.preventDefault());
-        noBtn.addEventListener("touchstart", (e) => e.preventDefault());
-
-        // ── submit: show thank you + mail data ──
+        // --- Submit Button ---
         submitBtn.addEventListener("click", function () {
           const dateVal = datePicker.value;
           const timeVal = timeSelect.value;
+
           if (!dateVal) {
-            alert("please pick a date, lovely ✨");
+            alert("Please pick a date, lovely ✨");
             return;
           }
 
-          // show thank you
+          // Show thank you
           thankyouMsg.classList.add("visible");
 
-          // build email body
+          // Create confetti celebration
+          createConfetti();
+
+          // Show countdown timer
+          countdownTimer.classList.add("visible");
+          startCountdown(dateVal, timeVal);
+
+          // Build email
           const subject = encodeURIComponent("💖 Date with Ishu ✨");
           const body = encodeURIComponent(
             `Dear Ishu,\n\n` +
               `You said YES! 🌸\n` +
-              `Date: ${dateVal}\n` +
-              `Time: ${timeVal}\n\n` +
-              `Can't wait to see you! 💫\n` +
-              `— with love 💕`,
+              `📅 Date: ${dateVal}\n` +
+              `⏰ Time: ${timeVal}\n\n` +
+              `I'm so excited to see you! 💫\n` +
+              `Can't wait for our special day! 🌹\n\n` +
+              `With all my love ❤️`,
           );
 
-          // mailto: rafidtawhid01@gmail.com
           const mailtoLink = `mailto:rafidtawhid01@gmail.com?subject=${subject}&body=${body}`;
-
-          // open mail client (or fallback)
           window.open(mailtoLink, "_blank");
 
-          // also copy to clipboard as a backup (optional)
-          const fallbackText = `Date: ${dateVal}\nTime: ${timeVal}\n( mail sent to rafidtawhid01@gmail.com )`;
+          // Also copy to clipboard
+          const fallbackText = `Date: ${dateVal}\nTime: ${timeVal}\n(Email sent to rafidtawhid01@gmail.com)`;
           navigator.clipboard?.writeText(fallbackText).catch(() => {});
 
-          // tiny extra sparkle: disable submit for 2s to avoid spam
+          // Disable submit button temporarily
           submitBtn.disabled = true;
-          submitBtn.style.opacity = "0.6";
+          submitBtn.textContent = "✅ Done!";
           setTimeout(() => {
             submitBtn.disabled = false;
-            submitBtn.style.opacity = "1";
-          }, 2000);
+            submitBtn.textContent = "💌 Let's go!";
+          }, 3000);
+
+          // Change profile image
+          profileImage.textContent = "🥰";
+          setTimeout(() => {
+            profileImage.textContent = "💕";
+          }, 3000);
         });
 
-        // ── extra: if user clicks "No" we also make it dance even more ──
-        // already animated via CSS, but we can add a random shift on hover
-        // (the hover already triggers faster animation)
+        // --- Countdown Timer ---
+        let countdownInterval;
 
-        // ── bonus: prevent no button from ever being "clicked" ──
-        // we also add a global capture to block no button click
-        document.addEventListener(
-          "click",
-          function (e) {
-            if (e.target === noBtn || noBtn.contains(e.target)) {
-              e.preventDefault();
-              e.stopPropagation();
-              // extra shake
-              noBtn.style.animation = "none";
-              noBtn.offsetHeight;
-              noBtn.style.animation =
-                "floatNo 0.4s infinite alternate ease-in-out";
-              return false;
+        function startCountdown(date, time) {
+          // Clear existing interval
+          if (countdownInterval) clearInterval(countdownInterval);
+
+          const dateTimeStr = `${date} ${time}`;
+          const targetDate = new Date(dateTimeStr);
+
+          countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate.getTime() - now;
+
+            if (distance < 0) {
+              clearInterval(countdownInterval);
+              document.getElementById("daysCount").textContent = "🎉";
+              document.getElementById("hoursCount").textContent = "🎉";
+              document.getElementById("minutesCount").textContent = "🎉";
+              document.getElementById("secondsCount").textContent = "🎉";
+              return;
             }
-          },
-          true,
-        );
 
-        // ── additional dance: move no button when mouse approaches ──
-        // (for extra playfulness)
-        let noBtnRect = noBtn.getBoundingClientRect();
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+              (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            );
+            const minutes = Math.floor(
+              (distance % (1000 * 60 * 60)) / (1000 * 60),
+            );
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("daysCount").textContent = String(
+              days,
+            ).padStart(2, "0");
+            document.getElementById("hoursCount").textContent = String(
+              hours,
+            ).padStart(2, "0");
+            document.getElementById("minutesCount").textContent = String(
+              minutes,
+            ).padStart(2, "0");
+            document.getElementById("secondsCount").textContent = String(
+              seconds,
+            ).padStart(2, "0");
+          }, 1000);
+        }
+
+        // --- Mouse move sparkle effect (subtle) ---
         document.addEventListener("mousemove", function (e) {
-          // only if no button is visible and not disabled
-          if (!noBtn || noBtn.style.display === "none") return;
-          const rect = noBtn.getBoundingClientRect();
-          const cx = rect.left + rect.width / 2;
-          const cy = rect.top + rect.height / 2;
-          const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
-          // if mouse is close (< 100px), trigger a little dance
-          if (dist < 120) {
-            const intensity = 1 - dist / 120;
-            noBtn.style.transform = `translate(${(Math.random() - 0.5) * 20 * intensity}px, ${(Math.random() - 0.5) * 20 * intensity}px) rotate(${(Math.random() - 0.5) * 15 * intensity}deg)`;
-          } else {
-            // reset transform (but keep animation)
-            if (!noBtn.style.animation.includes("floatNo")) {
-              noBtn.style.transform = "";
-            }
+          if (Math.random() < 0.02) {
+            // Only 2% chance per move
+            createSparkle(e.clientX, e.clientY);
           }
         });
 
-        // reset transform on mouse leave
-        document.addEventListener("mouseleave", function () {
-          if (noBtn) {
-            noBtn.style.transform = "";
+        // --- Keyboard shortcut: Press 'Y' for Yes ---
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "y" || e.key === "Y") {
+            yesBtn.click();
+          }
+          if (e.key === "n" || e.key === "N") {
+            noBtn.click();
           }
         });
+
+        // --- Initial animation: pulse profile image ---
+        setInterval(() => {
+          profileImage.style.transform = "scale(1.1)";
+          setTimeout(() => {
+            profileImage.style.transform = "scale(1)";
+          }, 200);
+        }, 4000);
+
+        console.log("💕 Made with love for Ishu 💕");
       })();
     </script>
   </body>
